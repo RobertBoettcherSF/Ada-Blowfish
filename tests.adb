@@ -22,12 +22,10 @@ begin
    Put_Line ("TEST 1 — Initialization (Normal)");
    declare
       Ctx     : Context;
-      Key     : constant Byte_Array := (16#01#, 16#02#, 16#03#, 16#04#, 16#05#);
-      Success : Boolean := False;
+      Key     : constant Byte_Array := [16#01#, 16#02#, 16#03#, 16#04#, 16#05#];
    begin
       Setup_Key (Ctx, Key);
-      Success := True;
-      Check ("1.1 Setup_Key completes normally", Success);
+      Check ("1.1 Setup_Key completes normally", True);
       Check ("1.2 No exceptions thrown", True);
       Check ("1.3 Key length > 4 validation OK", True);
    end;
@@ -35,7 +33,7 @@ begin
    -- TEST 2 — Byte / Block Endianness Conversions
    Put_Line ("TEST 2 — Byte / Block Conversion");
    declare
-      Bytes : constant Byte_Array (1 .. 8) := (16#11#, 16#22#, 16#33#, 16#44#, 16#55#, 16#66#, 16#77#, 16#88#);
+      Bytes : constant Byte_Array (1 .. 8) := [16#11#, 16#22#, 16#33#, 16#44#, 16#55#, 16#66#, 16#77#, 16#88#];
       B     : Block;
       Round : Byte_Array (1 .. 8);
    begin
@@ -50,9 +48,9 @@ begin
    Put_Line ("TEST 3 — Known Answer Test (All Zeros)");
    declare
       Ctx : Context;
-      Key : constant Byte_Array := (1 .. 8 => 16#00#);
-      Pln : constant Byte_Array := (1 .. 8 => 16#00#);
-      Cph : constant Byte_Array := (16#4E#, 16#F9#, 16#97#, 16#45#, 16#61#, 16#98#, 16#DD#, 16#78#);
+      Key : constant Byte_Array := [1 .. 8 => 16#00#];
+      Pln : constant Byte_Array := [1 .. 8 => 16#00#];
+      Cph : constant Byte_Array := [16#4E#, 16#F9#, 16#97#, 16#45#, 16#61#, 16#98#, 16#DD#, 16#78#];
       B   : Block;
       Out_Block : constant Block := To_Block (Cph);
    begin
@@ -69,9 +67,9 @@ begin
    Put_Line ("TEST 4 — Known Answer Test (All FFs)");
    declare
       Ctx : Context;
-      Key : constant Byte_Array := (1 .. 8 => 16#FF#);
-      Pln : constant Byte_Array := (1 .. 8 => 16#FF#);
-      Cph : constant Byte_Array := (16#51#, 16#86#, 16#6F#, 16#D5#, 16#B8#, 16#5E#, 16#CB#, 16#8A#);
+      Key : constant Byte_Array := [1 .. 8 => 16#FF#];
+      Pln : constant Byte_Array := [1 .. 8 => 16#FF#];
+      Cph : constant Byte_Array := [16#51#, 16#86#, 16#6F#, 16#D5#, 16#B8#, 16#5E#, 16#CB#, 16#8A#];
       B   : Block;
       Out_Block : constant Block := To_Block (Cph);
    begin
@@ -88,9 +86,9 @@ begin
    Put_Line ("TEST 5 — Known Answer Test 3");
    declare
       Ctx : Context;
-      Key : constant Byte_Array := (16#30#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#);
-      Pln : constant Byte_Array := (16#10#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#01#);
-      Cph : constant Byte_Array := (16#7D#, 16#85#, 16#6F#, 16#9A#, 16#61#, 16#30#, 16#63#, 16#F2#);
+      Key : constant Byte_Array := [16#30#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#];
+      Pln : constant Byte_Array := [16#10#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#00#, 16#01#];
+      Cph : constant Byte_Array := [16#7D#, 16#85#, 16#6F#, 16#9A#, 16#61#, 16#30#, 16#63#, 16#F2#];
       B   : Block;
       Out_Block : constant Block := To_Block (Cph);
    begin
@@ -107,9 +105,9 @@ begin
    Put_Line ("TEST 6 — Known Answer Test 4");
    declare
       Ctx : Context;
-      Key : constant Byte_Array := (16#01#, 16#23#, 16#45#, 16#67#, 16#89#, 16#AB#, 16#CD#, 16#EF#);
-      Pln : constant Byte_Array := (16#11#, 16#11#, 16#11#, 16#11#, 16#11#, 16#11#, 16#11#, 16#11#);
-      Cph : constant Byte_Array := (16#61#, 16#F9#, 16#C3#, 16#80#, 16#22#, 16#81#, 16#B0#, 16#96#);
+      Key : constant Byte_Array := [16#01#, 16#23#, 16#45#, 16#67#, 16#89#, 16#AB#, 16#CD#, 16#EF#];
+      Pln : constant Byte_Array := [16#11#, 16#11#, 16#11#, 16#11#, 16#11#, 16#11#, 16#11#, 16#11#];
+      Cph : constant Byte_Array := [16#61#, 16#F9#, 16#C3#, 16#80#, 16#22#, 16#81#, 16#B0#, 16#96#];
       B   : Block;
       Out_Block : constant Block := To_Block (Cph);
    begin
@@ -126,8 +124,8 @@ begin
    Put_Line ("TEST 7 — Electronic Codebook (ECB) Mode");
    declare
       Ctx  : Context;
-      Key  : constant Byte_Array := (1 .. 8 => 16#AA#);
-      Data : Byte_Array (1 .. 16) := (1 .. 16 => 16#55#);
+      Key  : constant Byte_Array := [1 .. 8 => 16#AA#];
+      Data : Byte_Array (1 .. 16) := [1 .. 16 => 16#55#];
       Orig : constant Byte_Array := Data;
    begin
       Setup_Key (Ctx, Key);
@@ -142,11 +140,11 @@ begin
    Put_Line ("TEST 8 — Cipher Block Chaining (CBC) Mode");
    declare
       Ctx  : Context;
-      Key  : constant Byte_Array := (1 .. 8 => 16#AA#);
-      Data : Byte_Array (1 .. 16) := (1 .. 16 => 16#00#);
+      Key  : constant Byte_Array := [1 .. 8 => 16#AA#];
+      Data : Byte_Array (1 .. 16) := [1 .. 16 => 16#00#];
       Orig : constant Byte_Array := Data;
-      IV1  : Block := To_Block ((1 .. 8 => 16#11#));
-      IV2  : Block := To_Block ((1 .. 8 => 16#11#));
+      IV1  : Block := To_Block ([1 .. 8 => 16#11#]);
+      IV2  : Block := To_Block ([1 .. 8 => 16#11#]);
    begin
       Setup_Key (Ctx, Key);
       Encrypt_CBC (Ctx, IV1, Data);
@@ -160,8 +158,8 @@ begin
    Put_Line ("TEST 9 — Repeated Operational Symmetry");
    declare
       Ctx : Context;
-      Key : constant Byte_Array := (16#DE#, 16#AD#, 16#BE#, 16#EF#, 16#CA#, 16#FE#, 16#BA#, 16#BE#);
-      Msg : Byte_Array (1 .. 24) := (1 .. 24 => 16#42#);
+      Key : constant Byte_Array := [16#DE#, 16#AD#, 16#BE#, 16#EF#, 16#CA#, 16#FE#, 16#BA#, 16#BE#];
+      Msg : Byte_Array (1 .. 24) := [1 .. 24 => 16#42#];
       Dup : constant Byte_Array := Msg;
    begin
       Setup_Key (Ctx, Key);
@@ -180,8 +178,8 @@ begin
    Put_Line ("TEST 10 — Minimum Boundary (4 Bytes)");
    declare
       Ctx : Context;
-      Key : constant Byte_Array := (16#A1#, 16#B2#, 16#C3#, 16#D4#);
-      Msg : Byte_Array (1 .. 8) := (1 .. 8 => 16#11#);
+      Key : constant Byte_Array := [16#A1#, 16#B2#, 16#C3#, 16#D4#];
+      Msg : Byte_Array (1 .. 8) := [1 .. 8 => 16#11#];
       Pln : constant Byte_Array := Msg;
    begin
       Setup_Key (Ctx, Key);
@@ -196,8 +194,8 @@ begin
    Put_Line ("TEST 11 — Maximum Boundary (56 Bytes)");
    declare
       Ctx : Context;
-      Key : constant Byte_Array (1 .. 56) := (others => 16#99#);
-      Msg : Byte_Array (1 .. 8) := (1 .. 8 => 16#99#);
+      Key : constant Byte_Array (1 .. 56) := [others => 16#99#];
+      Msg : Byte_Array (1 .. 8) := [1 .. 8 => 16#99#];
       Pln : constant Byte_Array := Msg;
    begin
       Setup_Key (Ctx, Key);
@@ -212,7 +210,7 @@ begin
    Put_Line ("TEST 12 — Invalid Key Constraint Trap");
    declare
       Ctx    : Context;
-      Key    : constant Byte_Array := (16#01#, 16#02#); -- Only 2 bytes!
+      Key    : constant Byte_Array := [16#01#, 16#02#]; -- Only 2 bytes!
       Caught : Boolean := False;
    begin
       begin
@@ -230,8 +228,8 @@ begin
    Put_Line ("TEST 13 — Block Alignment Error Trap");
    declare
       Ctx    : Context;
-      Key    : constant Byte_Array := (1 .. 8 => 16#BB#);
-      Data   : Byte_Array (1 .. 7) := (1 .. 7 => 16#00#); -- Not mod 8
+      Key    : constant Byte_Array := [1 .. 8 => 16#BB#];
+      Data   : Byte_Array (1 .. 7) := [1 .. 7 => 16#00#]; -- Not mod 8
       Caught : Boolean := False;
    begin
       Setup_Key (Ctx, Key);
@@ -242,7 +240,7 @@ begin
             Caught := True;
       end;
       Check ("13.1 Invalid_Data_Length trapped correctly", Caught);
-      Check ("13.2 Data remains clean and untouched", Data = (1 .. 7 => 16#00#));
+      Check ("13.2 Data remains clean and untouched", Data = [1 .. 7 => 16#00#]);
       Check ("13.3 Test suite stable", True);
    end;
 
